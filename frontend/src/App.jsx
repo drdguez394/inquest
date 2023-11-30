@@ -8,25 +8,28 @@ import InquestPage from "./pages/inquest/inquestPage.jsx";
 import InquestFormPage from "./pages/inquest/inquestFormPage.jsx";
 
 import ProtectedRoute from "./protectedRoute.jsx";
+import {InquestProvider} from "./context/inquestContext.jsx";
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
+      <InquestProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
 
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/inquest' element={<InquestPage />} />
-            <Route path='/inquest-add' element={<InquestFormPage />} />
-            <Route path='/inquest/:id' element={<InquestFormPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+            <Route element={<ProtectedRoute />}>
+              <Route path='/profile' element={<ProfilePage />} />
+              <Route path='/inquest' element={<InquestPage />} />
+              <Route path='/inquest-add' element={<InquestFormPage />} />
+              <Route path='/inquest/:id' element={<InquestFormPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </InquestProvider>
     </AuthProvider>
   )
 }
