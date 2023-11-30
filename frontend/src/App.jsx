@@ -1,20 +1,30 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import RegisterPage from "./pages/auth/registerPage";
-import LoginPage from "./pages/auth/loginPage";
-import { AuthProvider } from "./context/authContext";
+import { AuthProvider } from "./context/authContext.jsx";
+import HomePage from "./pages/homePage.jsx";
+import LoginPage from "./pages/auth/loginPage.jsx";
+import RegisterPage from "./pages/auth/registerPage.jsx";
+import ProfilePage from "./pages/auth/profilePage.jsx";
+import InquestPage from "./pages/inquest/inquestPage.jsx";
+import InquestFormPage from "./pages/inquest/inquestFormPage.jsx";
+
+import ProtectedRoute from "./protectedRoute.jsx";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<h1>HOME</h1>} />
+          <Route path='/' element={<HomePage />} />
+
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
-          <Route path='/inquest' element={<h1>ENCUESTAS</h1>} />
-          <Route path='/inquest-add' element={<h1>CREAR ENCUESTA</h1>} />
-          <Route path='/inquest/:id' element={<h1>ACTUALIZAR ENCUESTA</h1>} />
-          <Route path='/profile' element={<h1>PERFIL</h1>} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/inquest' element={<InquestPage />} />
+            <Route path='/inquest-add' element={<InquestFormPage />} />
+            <Route path='/inquest/:id' element={<InquestFormPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

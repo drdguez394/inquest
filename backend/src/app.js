@@ -8,7 +8,7 @@ import inquestRouts from './routes/inquest.routes.js' // importamos las rutas de
 
 const app = express(); // inicializamos express
 
-app.use(cors({origin: 'http://localhost:5173'})); // indicamos la función cors
+app.use(cors({ origin: 'http://localhost:5173', credentials: true })); // indicamos la función cors
 app.use(morgan('dev')); // indicamos el formato de los logs
 app.use(express.json()); // para convertir los req.body en json
 app.use(cookieParser()); // indicamos la función cookieParser para manejar los cookies
