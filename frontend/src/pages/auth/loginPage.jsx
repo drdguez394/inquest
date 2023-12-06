@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function loginPage() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { signin, errors: signinErrors } = useAuth();
+  const { signin, errors: loginErrors } = useAuth();
 
   const onSubmit = handleSubmit((data) => {
     signin(data);
@@ -15,8 +15,8 @@ function loginPage() {
   return (
     <div className="flex h-[calc(100vh-100px)] justify-center items-center">
       <div className="bg-zinc-800 max-w-md p-10 rounded-md">
-        <p className="text-2xl">Login</p>
-        {signinErrors.map((error, i) => (
+        <p className="text-2xl">Loguearse</p>
+        {loginErrors.map((error, i) => (
           <div className="bg-red-500 p-2 text-white my-2" key={i}>
             {error}
           </div>
@@ -40,7 +40,7 @@ function loginPage() {
         </form>
         <p className="flex gap-x-2 justify-between my-2">
           Ahún no tienes cuenta?
-          <Link to="/register" className="text-sky-500">Register</Link>
+          <Link to="/register" className="text-sky-500">Registrarse</Link>
         </p>
       </div>
     </div>
