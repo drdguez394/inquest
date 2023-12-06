@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {useInquests} from "../../context/InquestContext.jsx"
+import {useInquests} from "../../context/inquestContext"
 
 function inquestPage() {
   const {getInquests} = useInquests();
