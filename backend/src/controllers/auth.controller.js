@@ -103,19 +103,20 @@ export const verifyToken = async (req, res) => {
     return res.status(401).json({ message: "No autorizado" });
   }
 
-
-  /* if (!token) return res.send(false);
-
-  jwt.verify(token, TOKEN_SECRET_KEY, async (error, user) => {
-    if (error) return res.sendStatus(401);
+  jwt.verify(token, TOKEN_SECRET_KEY, async (err, user) => {
+    if (err) {
+      return res.status(401).json({ message: "No autorizado" });
+    }
 
     const userFound = await User.findById(user.id);
-    if (!userFound) return res.sendStatus(401);
+    if (!userFound) {
+      return res.status(401).json({ message: "No autorizado" });
+    }
 
     return res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
     });
-  }); */
+  });
 };
