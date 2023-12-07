@@ -98,7 +98,13 @@ export const profile = async (req, res) => {
 
 export const verifyToken = async (req, res) => {
   const { token } = req.cookies;
-  if (!token) return res.send(false);
+
+  if (!token) {
+    return res.status(401).json({ message: "No autorizado" });
+  }
+
+
+  /* if (!token) return res.send(false);
 
   jwt.verify(token, TOKEN_SECRET_KEY, async (error, user) => {
     if (error) return res.sendStatus(401);
@@ -111,5 +117,5 @@ export const verifyToken = async (req, res) => {
       username: userFound.username,
       email: userFound.email,
     });
-  });
+  }); */
 };
