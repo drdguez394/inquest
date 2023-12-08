@@ -8,7 +8,7 @@ const router = Router(); // instanciamos el objeto de tipo router
 
 router.get('/inquest', authRequired, getInquests); // ruta para el home de las encuestas
 router.get('/inquest/:id', authRequired, getInquest); // ruta para ver el detalle de las encuestas
-router.post('/inquest', authRequired, validateSchema(inquestSchema), createInquest); // ruta para crear las encuestas
+router.post('/inquest', authRequired, /*validateSchema(inquestSchema), */createInquest); // ruta para crear las encuestas
 router.delete('/inquest/:id', authRequired, deleteInquest); // ruta para eliminar las encuestas
 router.put('/inquest/:id', authRequired, validateSchema(inquestSchema), updateInquest); // ruta para actualizar las encuestas
 

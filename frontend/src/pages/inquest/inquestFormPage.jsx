@@ -1,120 +1,53 @@
-import { useState } from "react";
-
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useInquests } from "../../context/inquestContext";
 import { useForm } from "react-hook-form";
+import { useInquests } from "../../context/inquestContext";
 
-export function InquestFormPage() {
-  const { createInquest, getInquest, updateInquest } = useInquests();
-  const navigate = useNavigate();
-  const params = useParams();
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+function InquestFormPage() {
+  const { register, handleSubmit } = useForm();
+  const { createInquest } = useInquests();
 
-  const onSubmit = async (data) => {
-    try {
-      if (params.id) {
-        updateInquest(params.id);
-      } else {
-        createInquest({
-          ...data
-        });
-      }
-
-      // navigate("/inquests");
-    } catch (error) {
-      console.log(error);
-      // window.location.href = "/";
-    }
-  };
-
-  useEffect(() => {
-    const loadInquest = async () => {
-      if (params.id) {
-        const inquest = await getInquest(params.id);
-        setValue("Pregunta", inquest.title);
-        setValue("description", inquest.description);
-        setValue(
-          "date",
-          inquest.date ? dayjs(inquest.date).utc().format("YYYY-MM-DD") : ""
-        );
-        setValue("completed", inquest.completed);
-      }
-    };
-    loadInquest();
-  }, []);
-  
-  //---------------------------------------
-  const [optionList, setOptionList] = useState([
-    { option: "" },
-    { option: "" }
-  ]);
-
-  const handleOptionChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...optionList];
-    list[index][name] = value;
-    setOptionList(list);
-  };
-
-  const handleOptionRemove = (index) => {
-    const list = [...optionList];
-    list.splice(index, 1);
-    setOptionList(list);
-  };
-
-  const handleOptionAdd = () => {
-    setOptionList([...optionList, { option: "" }]);
-  };
-  //----------------------------------------
+  const onSubmit = handleSubmit((data) => {
+    // createInquest(data);
+    console.log(data);
+  });
 
   return (
     <div className="flex h-[calc(100vh-100px)] justify-center items-center">
-      <div className="bg-zinc-800 max-w-md p-10 rounded-md">
-        <p className="text-2xl">Crear encuesta</p>
-        <form onSubmit={onSubmit} autoComplete="off">
+      <div className="bg-zinc-800 max-w-md p-10 w-full rounded-md">
 
-          <input type="text" {...register('pregunta', { required: true, min: 5 })}
+        <h1 className="text-2xl font-bold">Encuesta</h1>
+
+        <form onSubmit={onSubmit} autoComplete="false">
+
+          <input type="text" {...register('pregunta', { required: true, min: 10 })}
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
             placeholder="Pregunta" autoFocus
           />
 
-          {optionList.map((singleOption, index) => (
-            
-            <div key={index}>
-              <div className="flex gap-x-2 justify-between my-2">
-                
-                <input type="text" {...register(`respuesta_${index + 1}`, { required: true, min: 2 })}
-                  className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                  placeholder={`Posible respuesta ${index + 1}`}
-                />
+          <div className="flex justify-between items-center my-2" key={1}>
+            <input type="text" {...register('respuesta_1', { required: true, min: 2 })}
+              className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md"
+              placeholder="Opción 1"
+            />
+            <button type="button" className="bg-red-500 hover:bg-red-700 text-white font-bold rounded py-2 px-4 ml-2">-</button>
+          </div>
 
-                {optionList.length !== 1 && (
-                  <button type="button" onClick={() => handleOptionRemove(index)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded my-2" >
-                    <span>-</span>
-                  </button>
-                )}
+          <div className="flex justify-between items-center my-2" key={2}>
+            <input type="text" {...register('respuesta_2', { required: true, min: 2 })}
+              className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md"
+              placeholder="Opción 2"
+            />
+            <button type="button" className="bg-red-500 hover:bg-red-700 text-white font-bold rounded py-2 px-4 ml-2">-</button>
+          </div>
 
-              </div>
+          <div className="flex justify-between items-center my-2">
 
-              {optionList.length - 1 === index && optionList.length < 10 && (
-                <button type="button" onClick={handleOptionAdd} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded my-2" >
-                  <span>+</span>
-                </button>
-              )}
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 my-2">Enviar</button>
 
-            </div>
+            <button type="button" className="bg-green-500 hover:bg-green-700 text-white font-bold rounded py-2 px-4 my-2">+</button>
+          </div>
 
-          ))}
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2">
-            <span>Enviar</span>
-          </button>
         </form>
+
       </div>
     </div>
   );
