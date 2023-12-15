@@ -24,7 +24,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path='/profile' element={<ProfilePage />} />
               <Route path='/inquest' element={<InquestPage />} />
-              <Route path='/inquest-add' element={<InquestFormPage />} />
+              <Route path='/inquest/create' element={<InquestFormPage />} />
               <Route path='/inquest/:id' element={<InquestFormPage />} />
             </Route>
           </Routes>
