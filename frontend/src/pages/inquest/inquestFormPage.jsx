@@ -6,10 +6,21 @@ function InquestFormPage() {
   const { register, handleSubmit } = useForm();
   const { createInquest } = useInquests();
 
-  // const onSubmit = handleSubmit((data) => {
-  //   // createInquest(data);
-  //   console.log(data);
-  // });
+  const onSubmit = handleSubmit((data) => {
+    const newData = {
+      'pregunta': data.pregunta,
+      'respuestas': [
+        {
+          'respuesta':data.respuesta_1
+        },
+        {
+          'respuesta':data.respuesta_2
+        }
+      ]
+    };
+    console.log(newData.respuestas.length);
+    // createInquest(newData);
+  });
 
   //------------------------------------------
   const [preguntas, setPreguntas] = useState({
@@ -24,9 +35,9 @@ function InquestFormPage() {
   const borrarRespuesta = (id) => {
     console.log(id);
     const valores = [...respuestas];
-    
+
     valores.splice(
-      valores.findIndex((valor) => valor.id === id),1
+      valores.findIndex((valor) => valor.id === id), 1
     );
     console.log(valores);
 
@@ -41,30 +52,30 @@ function InquestFormPage() {
   };
   //------------------------------------------
 
-  const onSubmit = handleSubmit((data) => {
-    const preguntaVasia = preguntas.pregunta.trim().length < 10;
-    const respuestasVasia = respuestas.every((obj) => {
-      return obj.opcion.length < 2;
-    });
+  // const onSubmit = handleSubmit((data) => {
+  //   const preguntaVasia = preguntas.pregunta.trim().length < 10;
+  //   const respuestasVasia = respuestas.every((obj) => {
+  //     return obj.opcion.length < 2;
+  //   });
 
-    if (preguntaVasia) {
-      setPreguntas({...preguntas});
-    }
-    if (respuestasVasia) {
-      setPreguntas(
-        [...respuestas].map((obj) => {
-          if (obj.opcion === '') {
-            return new Error("Las opciones no pueden estar vacías");
-          } else {
-            return obj;
-          }
-        })
-      );
-    } else {
-      /* return  */data = {pregunta:preguntas, opciones:respuestas};
-      console.log(data);
-    }
-  });
+  //   if (preguntaVasia) {
+  //     setPreguntas({...preguntas});
+  //   }
+  //   if (respuestasVasia) {
+  //     setPreguntas(
+  //       [...respuestas].map((obj) => {
+  //         if (obj.opcion === '') {
+  //           return new Error("Las opciones no pueden estar vacías");
+  //         } else {
+  //           return obj;
+  //         }
+  //       })
+  //     );
+  //   } else {
+  //     /* return  */data = {pregunta:preguntas, opciones:respuestas};
+  //     console.log(data);
+  //   }
+  // });
 
   return (
     <div className="flex h-[calc(100vh-100px)] justify-center items-center">
