@@ -1,75 +1,97 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useInquests } from "../../context/inquestContext";
 
 function InquestFormPage() {
-  const [serviceList, setServiceList] = useState([{ service: "" }]);
+  const { register, handleSubmit } = useForm({
+    pregunta: '',
+    respuestas: [
+      { respuesta: '' },
+      { respuesta: '' }
+    ]
 
-  const handleServiceChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...serviceList];
-    list[index][name] = value;
-    setServiceList(list);
+  });
+  const { createInquest } = useInquests();
+
+  //------------------------------------------
+  const [preguntas, setPreguntas] = useState({
+    pregunta: ''
+  });
+
+  const [respuestas, setRespuestas] = useState([
+    { respuesta: '' },
+    { respuesta: '' }
+  ]);
+
+  const agregarRespuesta = () => {
+    setRespuestas([
+      ...respuestas,
+      { respuesta: '' }
+    ]);
   };
 
-  const handleServiceRemove = (index) => {
-    const list = [...serviceList];
-    list.splice(index, 1);
-    setServiceList(list);
-  };
+  const eliminarRespuesta = (id) => {
+    const lista = [...respuestas];
 
-  const handleServiceAdd = () => {
-    setServiceList([...serviceList, { service: "" }]);
+    lista.splice(id, 1);
+
+    setRespuestas(lista);
   };
+  
+  const onSubmit = handleSubmit((data) => {
+    let newData = {
+      'pregunta': data.pregunta,
+      'respuestas': Object.entries(data)
+                      .filter(([key]) => key.startsWith('respuesta'))
+                      .map(([key, value]) => ({ respuesta: value }))
+    };
+
+    createInquest(newData);
+  });
 
   return (
-    <form className="App" autoComplete="off">
-      <div className="form-field">
-        <label htmlFor="service">Service(s)</label>
-        {serviceList.map((singleService, index) => (
-          <div key={index} className="services">
-            <div className="first-division">
-              <input
-                name="service"
-                type="text"
-                id="service"
-                value={singleService.service}
-                onChange={(e) => handleServiceChange(e, index)}
-                required
+    <div className="flex h-[calc(100vh-100px)] justify-center items-center">
+      <div className="bg-zinc-800 max-w-md p-10 w-full rounded-md">
+
+        <h1 className="text-2xl font-bold">Encuesta</h1>
+
+        <form onSubmit={onSubmit} autoComplete="off">
+
+          <input type="text" id="pregunta" {...register('pregunta', { /* required: true,  */min: 10 })}
+            className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            placeholder="Pregunta" autoComplete="off" autoFocus
+          />
+
+          {respuestas.map((campo, index) => (
+            <div className="flex justify-between items-center my-2" key={index}>
+              <input type="text" id={"respuesta_" + (index + 1)} {...register('respuesta_' + (index + 1), { /* required: true,  */min: 2 })}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md"
+                placeholder={"Opción " + (index + 1)} autoComplete="off"
               />
-              {serviceList.length - 1 === index && serviceList.length < 4 && (
-                <button
-                  type="button"
-                  onClick={handleServiceAdd}
-                  className="add-btn"
-                >
-                  <span>Add a Service</span>
+              {respuestas.length > 2 && (
+                <button type="button" onClick={() => eliminarRespuesta(index + 1)} className="bg-red-500 hover:bg-red-700 text-white font-bold rounded py-2 px-4 ml-2">
+                  <span>-</span>
                 </button>
               )}
             </div>
-            <div className="second-division">
-              {serviceList.length !== 1 && (
-                <button
-                  type="button"
-                  onClick={() => handleServiceRemove(index)}
-                  className="remove-btn"
-                >
-                  <span>Remove</span>
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="output">
-        <h2>Output</h2>
-        {serviceList &&
-          serviceList.map((singleService, index) => (
-            <ul key={index}>
-              {singleService.service && <li>{singleService.service}</li>}
-            </ul>
           ))}
+
+          <div className="flex justify-between items-center my-2">
+
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 my-2">
+              <span>Enviar</span>
+            </button>
+
+            <button type="button" onClick={agregarRespuesta} className="bg-green-500 hover:bg-green-700 text-white font-bold rounded py-2 px-4 my-2">
+              <span>+</span>
+            </button>
+          </div>
+
+        </form>
+
       </div>
-    </form>
+    </div>
   );
 }
 
-export default InquestFormPage;
+export default InquestFormPage
