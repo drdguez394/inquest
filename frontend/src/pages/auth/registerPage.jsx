@@ -31,11 +31,11 @@ function registerPage() {
           </div>
         ))}
         
-        <form onSubmit={onSubmit} autoComplete="false">
+        <form onSubmit={onSubmit} autoComplete="off">
 
           <input type="text" {...register('username', { required: true, min: 5 })}
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-            placeholder="Usuario" autoFocus
+            placeholder="Usuario" autoComplete="off" autoFocus
           />
           {errors.username && (
             <p className="text-red-500 text-xs italic">El usuario es requerido</p>
@@ -43,7 +43,7 @@ function registerPage() {
 
           <input type="email" {...register('email', { required: true, min: 5 })}
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-            placeholder="Correo"
+            placeholder="Correo" autoComplete="off"
           />
           {errors.email && (
             <p className="text-red-500 text-xs italic">El correo es requerido</p>
@@ -51,7 +51,7 @@ function registerPage() {
 
           <input type="password" {...register('password', { required: true, min: 6 })}
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-            placeholder="Contraseña"
+            placeholder="Contraseña" autoComplete="off"
           />
           {errors.password && (
             <p className="text-red-500 text-xs italic">La contraseña es requerida</p>
