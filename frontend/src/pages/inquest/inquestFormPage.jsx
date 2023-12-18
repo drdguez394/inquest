@@ -22,20 +22,20 @@ function InquestFormPage() {
     createInquest(newData);
   });
 
-  const handleRespuestaChange = (e, index) => {
+  const respuestaChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...respuestas];
     list[index][name] = value;
     setRespuestas(list);
   };
 
-  const handleRespuestaRemove = (index) => {
+  const respuestaRemove = (index) => {
     const list = [...respuestas];
     list.splice(index, 1);
     setRespuestas(list);
   };
 
-  const handleRespuestaAdd = () => {
+  const respuestaAdd = () => {
     setRespuestas([...respuestas, { respuesta: '' }]);
   };
 
@@ -56,12 +56,14 @@ function InquestFormPage() {
             <div className="flex justify-between items-center my-2" key={index}>
               <input type="text" id={"respuesta_" + (index + 1)}
                 {...register('respuesta_' + (index + 1), { /* required: true,  */min: 2 })}
-                value={campo.respuesta} onChange={(e) => handleRespuestaChange(e, index)}
+                value={campo.respuesta} onChange={(e) => respuestaChange(e, index)}
                 className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md"
                 placeholder={"Opción " + (index + 1)} autoComplete="off"
               />
               {respuestas.length > 2 && (
-                <button type="button" onClick={() => handleRespuestaRemove(index)} className="bg-red-500 hover:bg-red-700 text-white font-bold rounded py-2 px-4 ml-2">
+                <button type="button" onClick={() => respuestaRemove(index)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold rounded py-2 px-4 ml-2"
+                >
                   <span>-</span>
                 </button>
               )}
@@ -70,11 +72,15 @@ function InquestFormPage() {
 
           <div className="flex justify-between items-center my-2">
 
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 my-2">
+            <button type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 my-2"
+            >
               <span>Enviar</span>
             </button>
 
-            <button type="button" onClick={handleRespuestaAdd} className="bg-green-500 hover:bg-green-700 text-white font-bold rounded py-2 px-4 my-2">
+            <button type="button" onClick={respuestaAdd}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold rounded py-2 px-4 my-2"
+            >
               <span>+</span>
             </button>
           </div>
