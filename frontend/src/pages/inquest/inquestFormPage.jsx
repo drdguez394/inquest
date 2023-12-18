@@ -47,7 +47,8 @@ function InquestFormPage() {
 
         <form onSubmit={onSubmit} autoComplete="off">
 
-          <input type="text" id="pregunta" {...register('pregunta', { /* required: true,  */min: 10 })}
+          <input type="text" id="pregunta"
+            name="pregunta"/* {...register('pregunta', { required: true, min: 10 })} */
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
             placeholder="Pregunta" autoComplete="off" autoFocus
           />
@@ -55,7 +56,7 @@ function InquestFormPage() {
           {respuestas.map((campo, index) => (
             <div className="flex justify-between items-center my-2" key={index}>
               <input type="text" id={"respuesta_" + (index + 1)}
-                {...register('respuesta_' + (index + 1), { /* required: true,  */min: 2 })}
+                name="respuesta"/* {...register('respuesta_' + (index + 1), { required: true, min: 2 })} */
                 value={campo.respuesta} onChange={(e) => respuestaChange(e, index)}
                 className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md"
                 placeholder={"Opción " + (index + 1)} autoComplete="off"
