@@ -8,60 +8,7 @@ function inquestPage() {
     getInquests()
   }, [])
 
-
-
-  const arregloAnidado = [
-    {
-      id: 1,
-      nombre: 'Elemento 1',
-      elementosHijos: [
-        {
-          id: 2,
-          nombre: 'Elemento 1.1'
-        },
-        {
-          id: 3,
-          nombre: 'Elemento 1.2'
-        }
-      ]
-    },
-    {
-      id: 4,
-      nombre: 'Elemento 2',
-      elementosHijos: [
-        {
-          id: 5,
-          nombre: 'Elemento 2.1'
-        }
-      ]
-    }
-  ];
-
-  arregloAnidado.map((elementoPadre) => {
-    return (
-      <div key={elementoPadre.id}>
-        <h2>{elementoPadre.nombre}</h2>
-        <ul>
-          {elementoPadre.elementosHijos.map((elementoHijo) => {
-            return (
-              <li key={elementoHijo.id}>
-                {elementoHijo.nombre}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  });
-
-
-
-
-
-
-
   return (
-
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold">Encuestas</h1>
 
@@ -84,9 +31,11 @@ function inquestPage() {
               </button>
 
             </form>
+            
           </div>
         ))}
       </div>
+
     </div>
   );
 }
