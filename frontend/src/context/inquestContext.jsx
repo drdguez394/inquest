@@ -27,8 +27,12 @@ export function InquestProvider({ children }) {
   };
 
   const getInquests = async () => {
-    const res = await getInquestsRequest();
-    console.log(res);
+    try {
+      const res = await getInquestsRequest();
+      setInquests(res.data);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
