@@ -1,8 +1,10 @@
 import axios from "./axios";
 
+export const createInquestRequest = (inquest) => axios.post("/inquest", inquest);
+
 export const getInquestsRequest = () => axios.get("/inquest");
 
-export const createInquestRequest = (inquest) => axios.post("/inquest", inquest);
+export const completeInquestRequest = (vote) => axios.post("/inquest/vote", vote);
 
 export const updateInquestRequest = (id) =>axios.put(`/inquest/${inquest._id}`, inquest);
 

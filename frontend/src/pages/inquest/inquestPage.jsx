@@ -3,16 +3,16 @@ import { useForm } from "react-hook-form";
 import { useInquests } from "../../context/inquestContext";
 
 function inquestPage() {
-  const { getInquests, inquests } = useInquests();
+  const { getInquests, completeInquest, inquests } = useInquests();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = handleSubmit((data) => {
     const newData = {
-      'encuestaid': data.encuestaid,
-      'opcionid': data.opcionid
+      'encuestaId': data.encuestaId,
+      'respuestaId': data.respuestaId
     }
-    // completeInquest(data);
-    console.log(newData);
+    completeInquest(newData);
+    // console.log(newData);
   });
 
   useEffect(() => {
@@ -32,16 +32,16 @@ function inquestPage() {
 
               {inquest.respuestas.map((respuesta) => (
                 <div key={respuesta._id}>
-                  <input type="hidden" value={inquest._id}
-                    {...register('encuestaid', { required: true })}
+                  <input type="hidden" id={`encuestaId_${inquest._id}`} value={inquest._id}
+                    {...register('encuestaId', { required: true })}
                   />
-                  <input type="hidden" value={respuesta._id}
-                    {...register('opcionid', { required: true })}
+                  <input type="hidden" id={`respuestaId_${respuesta._id}`} value={respuesta._id}
+                    {...register('respuestaId', { required: true })}
                   />
                   <input type="radio" id={`respuesta_${respuesta._id}`} value={respuesta.respuesta}
                     {...register('respuestas', { required: true })}
                   />
-                  <label htmlFor={`respuesta_${respuesta._id}`} className="px-1">{respuesta.respuesta}</label>
+                  <label htmlFor={`respuesta_${respuesta._id}`} className="px-1">{respuesta.respuesta} | {inquest._id} - {respuesta._id}</label>
                 </div>
               ))}
 
