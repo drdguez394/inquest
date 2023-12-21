@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useInquests } from "../../context/inquestContext";
 
@@ -7,14 +8,19 @@ function InquestFormPage() {
       respuestas: [{}, {}]
     }
   });
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'respuestas'
   });
+
   const { createInquest } = useInquests();
+
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit((data) => {
     createInquest(data);
+    navigate('/inquest');
   });
 
   return (

@@ -29,8 +29,9 @@ function inquestPage() {
 
   if (inquests.length !== 0) {
     return (
-      <div className="container mx-auto">
-        <h1 className="text-2xl font-bold">Encuestas</h1>
+      <div className="px-10">
+
+        <h1 className="text-2xl font-bold mb-3">Encuestas</h1>
 
         <div className="grid gap-4 lg:grid-cols-2 lg:grid-rows-3">
           {inquests.map((inquest) => (
@@ -81,11 +82,12 @@ function inquestPage() {
     );
   } else {
     return (
-      <div className="container mx-auto">
-        <h1 className="text-2xl font-bold">Encuestas</h1>
+      <div className="px-10">
+
+        <h1 className="text-2xl font-bold mb-3">Encuestas</h1>
 
         <h1 className="text-xl font-bold">
-          No existen encuestas para mostrar aún, desea <a href="/inquest/create" className="text-sky-500">crear una encuestas</a>?
+          No se encontraron encuestas para mostrar, desea <a href="/inquest/create" className="text-sky-500">crear una</a>?
         </h1>
 
       </div>
