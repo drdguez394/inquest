@@ -8,13 +8,15 @@ import InquestPage from "./pages/inquest/inquestPage.jsx";
 import InquestFormPage from "./pages/inquest/inquestFormPage.jsx";
 
 import ProtectedRoute from "./protectedRoute.jsx";
-import {InquestProvider} from "./context/inquestContext.jsx";
+import { InquestProvider } from "./context/inquestContext.jsx";
+import Navbar from "./components/navbar.jsx";
 
 function App() {
   return (
     <AuthProvider>
       <InquestProvider>
         <BrowserRouter>
+          <Navbar />
           <Routes>
             <Route path='/' element={<HomePage />} />
 
