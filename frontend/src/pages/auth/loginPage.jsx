@@ -1,15 +1,24 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function loginPage() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { signin, errors: loginErrors } = useAuth();
+  const { signin, errors: loginErrors, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit((values) => {
     signin(values);
   });
+
+  // verificamos que el usuario este registrado
+  useEffect (() => {
+    if (isAuthenticated) {
+      navigate('/inquest');
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="flex h-[calc(100vh-100px)] justify-center items-center">

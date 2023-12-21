@@ -19,6 +19,13 @@ function registerPage() {
     signup(values);
   })
 
+  // verificamos que el usuario este registrado
+  useEffect (() => {
+    if (isAuthenticated) {
+      navigate('/inquest');
+    }
+  }, [isAuthenticated]);
+
   return (
     <div className="flex h-[calc(100vh-100px)] justify-center items-center">
       <div className="bg-zinc-800 max-w-md p-10 w-full rounded-md">
