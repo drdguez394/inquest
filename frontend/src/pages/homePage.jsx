@@ -33,7 +33,6 @@ function homePage() {
 
         <div className="flex justify-between mb-3">
           <h1 className="text-2xl font-bold my-auto">Administrar Encuestas</h1>
-          <Link to="/inquest/create" className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 my-2">Nueva encuesta</Link>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-2 lg:grid-rows-3">
