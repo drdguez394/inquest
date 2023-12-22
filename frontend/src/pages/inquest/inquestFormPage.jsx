@@ -20,7 +20,7 @@ function InquestFormPage() {
 
   const onSubmit = handleSubmit((data) => {
     createInquest(data);
-    redirect('/inquest');
+    redirect('/inquest/manage');
   });
 
   return (
