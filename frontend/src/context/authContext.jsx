@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
 import Cookies from "js-cookie";
+import { redirect, redirectDocument } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -49,6 +50,7 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove('token');
     setIsAuthenticated(false);
     setUser(null);
+    redirectDocument('/');
   };
 
   useEffect(() => {

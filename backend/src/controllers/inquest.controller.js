@@ -1,8 +1,24 @@
 import Inquest from "../models/inquest.model.js"; // importamos el modelo
 
 // maneja la petición mostrar encuestas
+export const getAllInquests = async (req, res) => {
+  const inquest = await Inquest.find(); // buscamos todos los encuestas en la base de datos
+  
+  // ordenamos el arreglo de mayor a menor
+  inquest.sort((a, b) => Math.random()-0.5);
+  
+  res.json(inquest); // retornamos los datos
+};
+
+// maneja la petición mostrar encuestas
 export const getInquests = async (req, res) => {
   const inquest = await Inquest.find({ user: req.user.id }).populate('user'); // buscamos todos los encuestas en la base de datos que pertenezcan al usuario y la información del propio usuario
+  
+  // ordenamos el arreglo de mayor a menor
+  inquest.sort((a, b) => {
+    return -a.updatedAt-b.updatedAt;
+  });
+  
   res.json(inquest); // retornamos los datos
 };
 

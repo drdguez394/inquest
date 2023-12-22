@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { createInquestRequest, getInquestsRequest, completeInquestRequest } from "../api/inquest";
+import { createInquestRequest, getAllInquestsRequest, getInquestsRequest, completeInquestRequest } from "../api/inquest";
 
 const InquestContext = createContext();
 
@@ -21,6 +21,15 @@ export function InquestProvider({ children }) {
     try {
       const res = await createInquestRequest(inquests);
       setInquests(res, data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllInquests = async () => {
+    try {
+      const res = await getAllInquestsRequest();
+      setInquests(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -48,6 +57,7 @@ export function InquestProvider({ children }) {
     <InquestContext.Provider value={{
       inquests,
       createInquest,
+      getAllInquests,
       getInquests,
       completeInquest
     }}>

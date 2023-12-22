@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useInquests } from "../../context/inquestContext";
 
@@ -16,11 +16,11 @@ function InquestFormPage() {
 
   const { createInquest } = useInquests();
 
-  const navigate = useNavigate();
+  const redirect = useNavigate();
 
   const onSubmit = handleSubmit((data) => {
     createInquest(data);
-    navigate('/inquest');
+    redirect('/inquest');
   });
 
   return (

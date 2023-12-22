@@ -30,7 +30,7 @@ function navbar() {
 
 						<ul className="flex gap-x-2 text-sky-500">
 							<li><Link to={'/profile'}>Perfil</Link></li>
-							<li><Link to={'/'} onClick={() => {logout()}}>Logout</Link></li>
+							<li><Link to={'/'} onClick={() => {logout()}}>Cerrar Seción</Link></li>
 						</ul>
 
 					</div>
@@ -57,7 +57,7 @@ function navbar() {
 						<img src="https://www.counselling-guidance.com/images/admission-consultants-in-delhi.png" alt="user" className="mx-auto" width="35px" height="35px" />
 
 						<ul className="flex gap-x-2 text-sky-500">
-							<li><Link to={'/login'}>Login</Link></li>
+							<li><Link to={'/login'}>Loguearse</Link></li>
 							<li><Link to={'/register'}>Registrarse</Link></li>
 						</ul>
 

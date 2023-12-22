@@ -3,19 +3,38 @@ import jwt from "jsonwebtoken"; // importamos la función de jwt
 
 // garantiza el acceso a los usuarios logueados
 export const authRequired = (req, res, next) => {
-	const { token } = req.cookies; // obtenemos el token de la cookie
+  const { token } = req.cookies; // obtenemos el token de la cookie
 
-	if (!token) {
-		return res.status(401).json({ message: "No está autorizado" }); // devolvemos un json con el mensaje de error
-	}
+  if (!token) {
+    return res.status(401).json({ message: "No está autorizado" }); // devolvemos un json con el mensaje de error
+  }
 
-	jwt.verify(token, TOKEN_SECRET_KEY, (err, user) => {
-		if (err) {
-			return res.status(401).json({ message: "Credenciales no autorizadas" }); // devolvemos un json con el mensaje de error
-		}
+  jwt.verify(token, TOKEN_SECRET_KEY, (err, user) => {
+    if (err) {
+      return res.status(401).json({ message: "Credenciales no autorizadas" }); // devolvemos un json con el mensaje de error
+    }
 
-		req.user = user; // a user del request le asignamos el usuario logueado
+    req.user = user; // a user del request le asignamos el usuario logueado
 
-		next(); // permitimos el proceso
-	});
+    next(); // permitimos el proceso
+  });
+};
+
+// garantiza el acceso a los usuarios no logueados
+export const authNotRequired = (req, res, next) => {
+  const { token } = req.cookies; // obtenemos el token de la cookie
+
+  if (!token) {
+    return res.status(401).json({ message: "No está autorizado" }); // devolvemos un json con el mensaje de error
+  }
+
+  jwt.verify(token, TOKEN_SECRET_KEY, (err, user) => {
+    if (err) {
+      return res.status(401).json({ message: "Credenciales no autorizadas" }); // devolvemos un json con el mensaje de error
+    }
+
+    req.user = user; // a user del request le asignamos el usuario logueado
+
+    next(); // permitimos el proceso
+  });
 };
