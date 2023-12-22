@@ -16,7 +16,7 @@ function loginPage() {
   // verificamos que el usuario este registrado
   useEffect (() => {
     if (isAuthenticated) {
-      navigate('/inquest');
+      navigate('/inquest/manage');
     }
   }, [isAuthenticated]);
 

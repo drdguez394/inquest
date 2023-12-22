@@ -22,7 +22,7 @@ function registerPage() {
   // verificamos que el usuario este registrado
   useEffect (() => {
     if (isAuthenticated) {
-      navigate('/inquest');
+      navigate('/profile');
     }
   }, [isAuthenticated]);
 
