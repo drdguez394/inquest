@@ -20,7 +20,7 @@ function navbar() {
 							<li><Link to={'/'}>Inicio</Link></li>
 							<li><Link to={''}>Quienes somos</Link></li>
 							<li><Link to={''}>Contáctenos</Link></li>
-							<li><Link to={'/inquest'}>Administrar encuestas</Link></li>
+							<li><Link to={'/inquest'}>Administrar</Link></li>
 						</ul>
 
 					</div>
