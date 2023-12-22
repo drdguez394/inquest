@@ -32,7 +32,7 @@ function homePage() {
       <div className="px-10">
 
         <div className="flex justify-between mb-3">
-          <h1 className="text-2xl font-bold my-auto">Administrar Encuestas</h1>
+          <h1 className="text-2xl font-bold my-auto">Encuestas</h1>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-2 lg:grid-rows-3">
