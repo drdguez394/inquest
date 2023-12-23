@@ -27,7 +27,7 @@ function App() {
               <Route path='/profile' element={<ProfilePage />} />
               <Route path='/inquest/manage' element={<InquestPage />} />
               <Route path='/inquest/create' element={<InquestFormPage />} />
-              <Route path='/inquest/:id' element={<InquestFormPage />} />
+              <Route path='/inquest/update/:id' element={<InquestFormPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

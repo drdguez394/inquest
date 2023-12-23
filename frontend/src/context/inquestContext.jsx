@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { createInquestRequest, getAllInquestsRequest, getInquestsRequest, completeInquestRequest } from "../api/inquest";
+import { createInquestRequest, getAllInquestsRequest, getInquestsRequest, completeInquestRequest, deleteInquestRequest } from "../api/inquest";
 
 const InquestContext = createContext();
 
@@ -53,13 +53,25 @@ export function InquestProvider({ children }) {
     }
   };
 
+  const deleteInquest = async (id) => {
+    try {
+      const res = await deleteInquestRequest(id);
+      if (res.status === 204) {
+        setInquests(inquests.filter((inquest) => inquest._id !== id));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <InquestContext.Provider value={{
       inquests,
       createInquest,
       getAllInquests,
       getInquests,
-      completeInquest
+      completeInquest,
+      deleteInquest
     }}>
       {children}
     </InquestContext.Provider>

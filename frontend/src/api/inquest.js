@@ -10,6 +10,6 @@ export const completeInquestRequest = (vote) => axios.post("/inquest/vote", vote
 
 export const updateInquestRequest = (id) =>axios.put(`/inquest/${inquest._id}`, inquest);
 
-export const deleteInquestRequest = (id) => axios.delete(`/inquest/${id}`);
+export const deleteInquestRequest = (id) => axios.delete(`/inquest/delete/${id}`);
 
 export const getInquestRequest = (id) => axios.get(`/inquest/${id}`);
