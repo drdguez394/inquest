@@ -1,9 +1,10 @@
-import { Link, redirect, useNavigate } from "react-router-dom";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useInquests } from "../../context/inquestContext";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function InquestFormPage() {
-  const { register, handleSubmit, control } = useForm({
+  const { register, handleSubmit, setValue, control } = useForm({
     defaultValues: {
       respuestas: [{}, {}]
     }
@@ -14,12 +15,29 @@ function InquestFormPage() {
     name: 'respuestas'
   });
 
-  const { createInquest } = useInquests();
+  const { createInquest, getInquest, updateInquest } = useInquests();
 
   const redirect = useNavigate();
 
+  const params = useParams();
+
+  useEffect(() => {
+    async function loadInquest() {
+      if (params.id) {
+        const pregunta = await getInquest(params.id);
+        setValue('pregunta', pregunta.pregunta);
+        setValue('respuestas', pregunta.respuestas);
+      }
+    }
+    loadInquest();
+  }, []);
+
   const onSubmit = handleSubmit((data) => {
-    createInquest(data);
+    if (params.id) {
+      updateInquest(params.id, data)
+    } else {
+      createInquest(data);
+    }
     redirect('/inquest/manage');
   });
 
