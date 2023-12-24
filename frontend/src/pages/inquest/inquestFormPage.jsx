@@ -45,7 +45,14 @@ function InquestFormPage() {
     <div className="flex h-[calc(100vh-100px)] justify-center items-center">
       <div className="bg-zinc-800 max-w-md p-10 w-full rounded-md">
 
-        <h1 className="text-2xl font-bold">Encuesta</h1>
+        <h1 className="text-2xl font-bold">
+          {
+            params.id ?
+              'Editar encuesta'
+            :
+              'Crear encuesta'
+          }
+        </h1>
 
         <form onSubmit={onSubmit} autoComplete="off">
 

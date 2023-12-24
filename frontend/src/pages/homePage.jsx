@@ -1,19 +1,20 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useInquests } from "../context/inquestContext";
 
 function homePage() {
-  const { getAllInquests, completeInquest, inquests } = useInquests();
   const { register, handleSubmit, control } = useForm({
     defaultValues: {
       respuestas: [{}, {}]
     }
   });
+  
   const { fields } = useFieldArray({
     control,
     name: 'respuestas'
   });
+  
+  const { getAllInquests, completeInquest, inquests } = useInquests();
 
   const onSubmit = handleSubmit((data) => {
     const newData = {
