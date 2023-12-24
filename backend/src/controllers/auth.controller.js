@@ -74,49 +74,61 @@ export const login = async (req, res) => {
 
 // gestiona el cierre de la sesión de los usuarios
 export const logout = async (req, res) => {
-  res.cookie('token', ''); // le asignamos un token vacío a la cookie
-  res.status(200).json({ message: "Sesión cerrada correctamente" }); // retornamos un json con el mensaje de cierre de sesión
+  try {
+    res.cookie('token', ''); // le asignamos un token vacío a la cookie
+    res.status(200).json({ message: "Sesión cerrada correctamente" }); // retornamos un json con el mensaje de cierre de sesión
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // gestiona la solicitud de los usuarios profile
 export const profile = async (req, res) => {
-  const userFound = await User.findById(req.user.id);
-  if (!userFound) {
-    return res.status(400).json({ message: "Usuario no encontrado" }); // devolvemos un json con el mensaje de error
+  try {
+    const userFound = await User.findById(req.user.id);
+    if (!userFound) {
+      return res.status(400).json({ message: "Usuario no encontrado" }); // devolvemos un json con el mensaje de error
+    }
+
+    return res.json({ // devolvemos un json con la información del usuario que se guardó en la db
+      id: userFound._id, // id
+      username: userFound.username, // nombre
+      email: userFound.email, // email
+      crateAt: userFound.createdAt, // fecha de creación
+      updatedAt: userFound.updatedAt // fecha de la última modificación
+    });
+
+    res.send('PERFIL de USUARIO');
+  } catch (error) {
+    console.log(error);
   }
-
-  return res.json({ // devolvemos un json con la información del usuario que se guardó en la db
-    id: userFound._id, // id
-    username: userFound.username, // nombre
-    email: userFound.email, // email
-    crateAt: userFound.createdAt, // fecha de creación
-    updatedAt: userFound.updatedAt // fecha de la última modificación
-  });
-
-  res.send('PERFIL de USUARIO');
 };
 
 export const verifyToken = async (req, res) => {
-  const { token } = req.cookies;
+  try {
+    const { token } = req.cookies;
 
-  if (!token) {
-    return res.status(401).json({ message: "No autorizado" });
-  }
-
-  jwt.verify(token, TOKEN_SECRET_KEY, async (err, user) => {
-    if (err) {
+    if (!token) {
       return res.status(401).json({ message: "No autorizado" });
     }
 
-    const userFound = await User.findById(user.id);
-    if (!userFound) {
-      return res.status(401).json({ message: "No autorizado" });
-    }
+    jwt.verify(token, TOKEN_SECRET_KEY, async (err, user) => {
+      if (err) {
+        return res.status(401).json({ message: "No autorizado" });
+      }
 
-    return res.json({
-      id: userFound._id,
-      username: userFound.username,
-      email: userFound.email,
+      const userFound = await User.findById(user.id);
+      if (!userFound) {
+        return res.status(401).json({ message: "No autorizado" });
+      }
+
+      return res.json({
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+      });
     });
-  });
+  } catch (error) {
+    console.log(error);
+  }
 };
