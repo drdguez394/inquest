@@ -42,7 +42,7 @@ function InquestsCard({ inquest }) {
 
         <div className="pb-2 text-sm text-zinc-500 flex justify-between">
           <span className="font-bold">Creado: {new Date(inquest.createdAt).toLocaleDateString()}</span>
-          <span className="font-bold hidden lg:flex">Última interacción: {new Date(inquest.updatedAt).toLocaleDateString()}</span>
+          <span className="font-bold hidden lg:flex">Interacción: {new Date(inquest.updatedAt).toLocaleDateString()}</span>
         </div>
       </div>
     </div>
